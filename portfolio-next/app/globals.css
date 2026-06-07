@@ -1,0 +1,50 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #070707; --s1: #0f0f0f; --s2: #141414;
+  --gold: #D4AF77; --terra: #C4704F; --green: #4a9b6f;
+  --text: #EDE8DF; --muted: #6b6b6b; --dim: #333;
+  --border: rgba(255,255,255,0.055);
+  --fd: var(--font-display), 'Syne', sans-serif;
+  --fb: var(--font-body), 'Inter', sans-serif;
+  --fm: var(--font-mono), 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--fb); font-size: 16px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+::selection { background: var(--gold); color: #000; }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+input, textarea, select { font: inherit; color: inherit; }
+
+.mono { font-family: var(--fm); letter-spacing: .07em; }
+.disp { font-family: var(--fd); }
+
+.noise {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px;
+}
+
+@keyframes ticker-l { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+@keyframes ticker-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes spin    { from { transform: rotate(0deg); }  to { transform: rotate(360deg); } }
+@keyframes pulse   { 0%,100% { opacity:.5; } 50% { opacity:1; } }
+
+.tick-l { display:inline-flex; animation:ticker-l 40s linear infinite; white-space:nowrap; }
+.tick-r { display:inline-flex; animation:ticker-r 40s linear infinite; white-space:nowrap; }
+.tick-l:hover, .tick-r:hover { animation-play-state: paused; }
+.spin  { animation: spin  18s linear infinite; }
+.pulse { animation: pulse 2.5s ease   infinite; }
+
+@media (max-width: 767px) {
+  body  { overflow-x: hidden; }
+  button { min-height: 44px; }
+}
